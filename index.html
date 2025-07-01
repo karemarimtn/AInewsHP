@@ -1,1 +1,1038 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Hub - 世界の最新AIニュース集約サイト</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-1);
+            color: white;
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* News Sources Section */
+        .news-sources {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .source-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .source-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .source-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .source-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .source-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .source-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Latest News Section */
+        .latest-news {
+            padding: 80px 0;
+            background: var(--bg-color);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .news-source {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Trending Section */
+        .trending {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .trending-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .trending-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-color);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .trending-item:hover {
+            background: var(--card-bg);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .trending-rank {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 20px;
+            min-width: 50px;
+        }
+
+        .trending-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .trending-stats {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Tools Section */
+        .ai-tools {
+            padding: 80px 0;
+            background: var(--bg-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #475569;
+            color: #94a3b8;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .trending-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --card-bg: #1e293b;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --border-color: #334155;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    AI News Hub
+                </div>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#sources">ニュースソース</a></li>
+                        <li><a href="#latest">最新ニュース</a></li>
+                        <li><a href="#trending">トレンド</a></li>
+                        <li><a href="#tools">AIツール</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>世界最大級のAIニュースハブ</h1>
+                <p>世界中の最新AIニュース、トレンド、研究を一箇所で。リアルタイム更新で見逃しゼロ。</p>
+                <div class="cta-buttons">
+                    <a href="#latest" class="btn btn-primary">最新ニュースを見る</a>
+                    <a href="#sources" class="btn btn-secondary">ニュースソース一覧</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sources" class="news-sources">
+            <div class="container">
+                <h2 class="section-title">信頼できるAIニュースソース</h2>
+                <p class="section-subtitle">世界をリードするAI専門メディアから最新情報をお届けします</p>
+                
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="ニュースを検索...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <div class="source-icon" style="background: var(--gradient-1);">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3>AI News</h3>
+                        <p>人工知能に関する最新ニュース、分析、イベント情報を提供する総合メディア</p>
+                        <a href="https://www.artificialintelligence-news.com/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: var(--gradient-2);">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI Daily</h3>
+                        <p>AI愛好家のための厳選されたブレイキングニュースを毎日配信</p>
+                        <a href="https://aidaily.us/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: var(--gradient-3);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>AiNews.com</h3>
+                        <p>AI業界のトレンドと将来性に焦点を当てた専門ニュースサイト</p>
+                        <a href="https://www.ainews.com/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <h3>AINOW (日本)</h3>
+                        <p>日本最大級のAI専門メディア。国内外のAI動向を日本語で解説</p>
+                        <a href="https://ainow.ai/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>MIT News AI</h3>
+                        <p>MITからの最新AI研究とイノベーションに関する権威ある情報源</p>
+                        <a href="https://news.mit.edu/topic/artificial-intelligence2" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>TensorFlow Blog</h3>
+                        <p>機械学習とディープラーニングの実践的な情報とチュートリアル</p>
+                        <a href="https://blog.tensorflow.org/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="latest" class="latest-news">
+            <div class="container">
+                <h2 class="section-title">最新AIニュース</h2>
+                <p class="section-subtitle">世界各地から集められた最新のAI関連ニュースをリアルタイムで更新</p>
+                
+                <div class="news-grid" id="news-container">
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">AI News</span>
+                                <span class="news-date">2025年1月30日</span>
+                            </div>
+                            <h3 class="news-title">AIがエネルギー需要に与える影響と電力網の課題</h3>
+                            <p class="news-excerpt">AIデータセンターの急激な成長により、電力網への負荷が増大。持続可能なAI発展のための新たな取り組みが注目されています。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">AINOW</span>
+                                <span class="news-date">2025年1月30日</span>
+                            </div>
+                            <h3 class="news-title">日本のAI戦略：2025年の展望と政府の取り組み</h3>
+                            <p class="news-excerpt">日本政府が発表したAI推進法案と、Society 5.0実現に向けた具体的な政策について詳しく解説します。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">AI Daily</span>
+                                <span class="news-date">2025年1月29日</span>
+                            </div>
+                            <h3 class="news-title">生成AIの新たな突破口：マルチモーダルモデルの進化</h3>
+                            <p class="news-excerpt">テキスト、画像、音声を統合的に処理する次世代AIモデルが実用化段階に。様々な産業への応用が期待されています。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">OpenAI</span>
+                                <span class="news-date">2025年1月29日</span>
+                            </div>
+                            <h3 class="news-title">ChatGPT最新アップデート：推論能力の大幅向上</h3>
+                            <p class="news-excerpt">OpenAIが発表した最新の言語モデルは、複雑な推論タスクにおいて人間レベルの精度を実現。科学研究や教育分野での活用が加速。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">MIT News</span>
+                                <span class="news-date">2025年1月28日</span>
+                            </div>
+                            <h3 class="news-title">AI倫理研究の最前線：バイアス除去の新手法</h3>
+                            <p class="news-excerpt">MIT研究チームが開発した新しいアルゴリズムにより、AIシステムの公平性を大幅に改善する技術が実現。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source">TechCrunch</span>
+                                <span class="news-date">2025年1月28日</span>
+                            </div>
+                            <h3 class="news-title">AIスタートアップの資金調達動向：2025年第1四半期レポート</h3>
+                            <p class="news-excerpt">AI関連スタートアップへの投資が過去最高を記録。特に日本とヨーロッパでの成長が顕著に。</p>
+                            <a href="#" class="source-link">続きを読む</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn btn-primary" onclick="loadMoreNews()">
+                        <span id="load-text">さらに読み込む</span>
+                        <span id="loading-spinner" class="loading" style="display: none;"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="trending" class="trending">
+            <div class="container">
+                <h2 class="section-title">トレンドランキング</h2>
+                <p class="section-subtitle">今週最も注目されているAI関連トピック</p>
+                
+                <div class="trending-grid">
+                    <div class="trending-main">
+                        <div class="trending-item">
+                            <div class="trending-rank">1</div>
+                            <div class="trending-content">
+                                <h4>生成AI規制法案</h4>
+                                <p>各国で議論されているAI規制の動向と企業への影響</p>
+                                <span class="news-date">📈 +245% 話題度上昇</span>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <div class="trending-rank">2</div>
+                            <div class="trending-content">
+                                <h4>量子AI計算</h4>
+                                <p>量子コンピューターとAIの融合技術の最新進展</p>
+                                <span class="news-date">📈 +198% 話題度上昇</span>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <div class="trending-rank">3</div>
+                            <div class="trending-content">
+                                <h4>AIロボティクス</h4>
+                                <p>産業用ロボットへのAI統合による自動化革命</p>
+                                <span class="news-date">📈 +167% 話題度上昇</span>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <div class="trending-rank">4</div>
+                            <div class="trending-content">
+                                <h4>医療AI診断</h4>
+                                <p>AIによる早期疾患発見技術の実用化</p>
+                                <span class="news-date">📈 +134% 話題度上昇</span>
+                            </div>
+                        </div>
+
+                        <div class="trending-item">
+                            <div class="trending-rank">5</div>
+                            <div class="trending-content">
+                                <h4>エッジAI</h4>
+                                <p>デバイス内AI処理技術の進歩とプライバシー保護</p>
+                                <span class="news-date">📈 +112% 話題度上昇</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trending-stats">
+                        <h3>週間統計</h3>
+                        <div class="stat-item">
+                            <span>新着記事数</span>
+                            <span class="stat-value">1,247</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>アクティブソース</span>
+                            <span class="stat-value">89</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>カテゴリー</span>
+                            <span class="stat-value">24</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>言語</span>
+                            <span class="stat-value">12</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>総読者数</span>
+                            <span class="stat-value">2.1M</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="ai-tools">
+            <div class="container">
+                <h2 class="section-title">便利なAIツール</h2>
+                <p class="section-subtitle">AI学習とビジネスに役立つツールとリソース</p>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>AI記事検索</h3>
+                        <p>キーワードや日付で記事を素早く検索</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>カスタム通知</h3>
+                        <p>興味のあるトピックの最新情報を通知</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>記事保存</h3>
+                        <p>後で読みたい記事をブックマーク</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>トレンド分析</h3>
+                        <p>AIトピックの人気度変化を可視化</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>簡単シェア</h3>
+                        <p>SNSやメールで記事を簡単に共有</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>多言語対応</h3>
+                        <p>12言語での記事閲覧をサポート</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AI News Hub</h3>
+                    <p>世界中のAI情報を一箇所で。信頼性の高いソースから最新のAIニュース、研究、トレンドをお届けします。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>カテゴリー</h3>
+                    <ul>
+                        <li><a href="#">機械学習</a></li>
+                        <li><a href="#">深層学習</a></li>
+                        <li><a href="#">自然言語処理</a></li>
+                        <li><a href="#">コンピュータビジョン</a></li>
+                        <li><a href="#">ロボティクス</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>リソース</h3>
+                    <ul>
+                        <li><a href="#">AI用語集</a></li>
+                        <li><a href="#">研究論文</a></li>
+                        <li><a href="#">データセット</a></li>
+                        <li><a href="#">オンラインコース</a></li>
+                        <li><a href="#">イベント情報</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>サポート</h3>
+                    <ul>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">利用規約</a></li>
+                        <li><a href="#">RSS配信</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI News Hub. All rights reserved. | 最新のAI情報をお届けします</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // スムーススクロール機能
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 検索機能
+        const searchBox = document.querySelector('.search-box');
+        const searchBtn = document.querySelector('.search-btn');
+
+        function performSearch() {
+            const query = searchBox.value.trim();
+            if (query) {
+                // 実際の実装では、ここでAPIを呼び出してニュースを検索
+                console.log('検索中:', query);
+                alert(`"${query}" を検索中...実際の実装では結果が表示されます。`);
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // ニュース読み込み機能
+        function loadMoreNews() {
+            const loadText = document.getElementById('load-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            loadText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
+
+            // 実際の実装では、ここでAPIからニュースを取得
+            setTimeout(() => {
+                loadText.style.display = 'inline';
+                loadingSpinner.style.display = 'none';
+                
+                // 新しいニュースカードを追加（例）
+                const newsContainer = document.getElementById('news-container');
+                const newCard = document.createElement('div');
+                newCard.className = 'news-card';
+                newCard.innerHTML = `
+                    <div class="news-image"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-source">AI Research</span>
+                            <span class="news-date">${new Date().toLocaleDateString('ja-JP')}</span>
+                        </div>
+                        <h3 class="news-title">新しいAIニュース記事</h3>
+                        <p class="news-excerpt">最新のAI研究成果についての詳細な分析記事です。</p>
+                        <a href="#" class="source-link">続きを読む</a>
+                    </div>
+                `;
+                newsContainer.appendChild(newCard);
+            }, 1500);
+        }
+
+        // ページ読み込み時のアニメーション
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.source-card, .news-card, .tool-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // リアルタイム時刻更新
+        setInterval(() => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ja-JP');
+            // 必要に応じて時刻表示を更新
+        }, 1000);
+
+        // ニュースの自動更新（デモ用）
+        let newsUpdateInterval = setInterval(() => {
+            // 実際の実装では、ここで新しいニュースをチェック
+            console.log('ニュースを更新中...');
+        }, 300000); // 5分ごと
+
+        // ダークモード切り替え（将来の拡張用）
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // ローカルストレージからダークモード設定を読み込み
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
