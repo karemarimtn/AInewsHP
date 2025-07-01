@@ -168,6 +168,12 @@
             margin-bottom: 60px;
         }
 
+        @media (min-width: 1200px) {
+            .sources-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         .source-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -602,7 +608,7 @@
 
         <section id="sources" class="news-sources">
             <div class="container">
-                <h2 class="section-title">信頼できるAIニュースソース</h2>
+                <h2 class="section-title">AIニュースソース</h2>
                 <p class="section-subtitle">世界をリードするAI専門メディアから最新情報をお届けします</p>
                 
                 <div class="search-container">
@@ -675,6 +681,50 @@
                         <h3>TensorFlow Blog</h3>
                         <p>機械学習とディープラーニングの実践的な情報とチュートリアル</p>
                         <a href="https://blog.tensorflow.org/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3>ITmedia AI+</h3>
+                        <p>日本のビジネス向けAI専門メディア。企業導入事例と最新技術動向を解説</p>
+                        <a href="https://aitimes.media/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>AI-SCHOLAR</h3>
+                        <p>AI研究者による最新論文解説と研究動向。学術的な視点からAIを深く理解</p>
+                        <a href="https://ai-scholar.tech/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Ledge.ai</h3>
+                        <p>AI・機械学習の実装から運用まで。エンジニア向けの実践的な技術情報</p>
+                        <a href="https://ledge.ai/" target="_blank" class="source-link">
+                            サイトを見る <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="source-card">
+                        <div class="source-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI+</h3>
+                        <p>日本のAI業界の最新ニュースとトレンド分析。スタートアップ動向も充実</p>
+                        <a href="https://project.nikkeibp.co.jp/ait/" target="_blank" class="source-link">
                             サイトを見る <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
