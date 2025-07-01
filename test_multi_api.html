@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マルチAPI統合テスト</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .trend-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .trend-rank {
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .trend-sources {
+            margin-left: auto;
+            display: flex;
+            gap: 5px;
+        }
+        .source-icon {
+            font-size: 16px;
+            opacity: 0.7;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 マルチAPI統合トレンドシステムテスト</h1>
+        <p>YouTube API、X API、Google Trends APIを統合したリアルタイムトレンド分析をテストします。</p>
+
+        <div class="test-controls">
+            <button class="test-button" onclick="testMultiSourceAnalysis()">
+                <i class="fas fa-chart-line"></i> マルチソース分析開始
+            </button>
+            <button class="test-button" onclick="testIndividualAPIs()">
+                <i class="fas fa-cogs"></i> 個別API テスト
+            </button>
+            <button class="test-button" onclick="clearResults()">
+                <i class="fas fa-trash"></i> 結果クリア
+            </button>
+        </div>
+
+        <div id="loading" style="display: none;">
+            <p><span class="loading"></span> 分析中...</p>
+        </div>
+
+        <div id="results" class="results" style="display: none;">
+            <h2>🏆 トレンドランキング結果</h2>
+            <div id="trend-list"></div>
+        </div>
+
+        <div id="api-status" class="results" style="display: none;">
+            <h2>📊 API 接続状況</h2>
+            <div id="status-list"></div>
+        </div>
+    </div>
+
+    <script src="trend_analyzer.js"></script>
+    <script>
+        // テスト用のニュースアグリゲーター
+        class TestNewsAggregator {
+            constructor() {
+                this.apiKey = '7b4cd42056a24f40b31061d28a6cca7f';
+            }
+
+            async fetchLatestNews(page = 1, query = '') {
+                // デモデータを返す
+                return [
+                    {
+                        title: "ChatGPT が新機能を発表",
+                        description: "OpenAI が ChatGPT の最新アップデートを公開",
+                        publishedAt: new Date().toISOString(),
+                        source: { name: "AI News" }
+                    },
+                    {
+                        title: "Google Gemini の新しい能力",
+                        description: "Google の AI モデルが画像認識を向上",
+                        publishedAt: new Date().toISOString(),
+                        source: { name: "TechCrunch" }
+                    }
+                ];
+            }
+
+            renderTrends(trends) {
+                const trendList = document.getElementById('trend-list');
+                const resultsDiv = document.getElementById('results');
+                
+                if (trends.length === 0) {
+                    trendList.innerHTML = '<p>トレンドが見つかりませんでした。</p>';
+                    return;
+                }
+
+                trendList.innerHTML = '';
+                trends.forEach(trend => {
+                    const sourceIcons = this.generateSourceIcons(trend.sources || ['News']);
+                    const item = document.createElement('div');
+                    item.className = 'trend-item';
+                    item.innerHTML = `
+                        <div class="trend-rank">${trend.rank}</div>
+                        <div>
+                            <strong>${trend.topic}</strong><br>
+                            <small>${trend.description}</small><br>
+                            <span style="color: #28a745;">📈 ${trend.growth} 成長</span>
+                        </div>
+                        <div class="trend-sources">
+                            ${sourceIcons}
+                            <span style="font-size: 12px;">${trend.sourceCount || 1}ソース</span>
+                        </div>
+                    `;
+                    trendList.appendChild(item);
+                });
+
+                resultsDiv.style.display = 'block';
+            }
+
+            generateSourceIcons(sources) {
+                const iconMap = {
+                    'News': '<i class="fas fa-newspaper source-icon" title="ニュース"></i>',
+                    'YouTube': '<i class="fab fa-youtube source-icon" title="YouTube" style="color: #ff0000;"></i>',
+                    'Twitter': '<i class="fab fa-twitter source-icon" title="Twitter" style="color: #1da1f2;"></i>',
+                    'Google Trends': '<i class="fas fa-chart-line source-icon" title="Google Trends" style="color: #4285f4;"></i>'
+                };
+                
+                return sources.map(source => iconMap[source] || '<i class="fas fa-globe source-icon"></i>').join(' ');
+            }
+
+            updateStats(data) {
+                console.log('統計更新:', data);
+            }
+        }
+
+        // グローバル変数
+        const testAggregator = new TestNewsAggregator();
+        let trendAnalyzer = null;
+
+        // 初期化
+        window.addEventListener('load', function() {
+            if (typeof RealTimeAITrendAnalyzer !== 'undefined') {
+                trendAnalyzer = new RealTimeAITrendAnalyzer(testAggregator);
+                console.log('✅ トレンド分析システムが初期化されました');
+            } else {
+                console.error('❌ RealTimeAITrendAnalyzer が見つかりません');
+            }
+        });
+
+        // マルチソース分析テスト
+        async function testMultiSourceAnalysis() {
+            if (!trendAnalyzer) {
+                alert('トレンド分析システムが初期化されていません');
+                return;
+            }
+
+            showLoading(true);
+            
+            try {
+                console.log('🔍 マルチソース分析を開始...');
+                const trends = await trendAnalyzer.analyzeRealTrends();
+                
+                testAggregator.renderTrends(trends);
+                console.log('✅ 分析完了:', trends);
+                
+                // 成功メッセージ
+                const results = document.getElementById('results');
+                results.innerHTML = '<h2>🏆 マルチソース分析結果</h2>' + results.innerHTML;
+                
+            } catch (error) {
+                console.error('❌ 分析エラー:', error);
+                alert('分析中にエラーが発生しました: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 個別API テスト
+        async function testIndividualAPIs() {
+            if (!trendAnalyzer) {
+                alert('トレンド分析システムが初期化されていません');
+                return;
+            }
+
+            showLoading(true);
+            const statusDiv = document.getElementById('api-status');
+            const statusList = document.getElementById('status-list');
+            
+            statusList.innerHTML = '';
+            statusDiv.style.display = 'block';
+
+            try {
+                // 各APIを個別にテスト
+                const apis = [
+                    { name: 'YouTube API', method: 'fetchYouTubeTrends' },
+                    { name: 'Twitter API', method: 'fetchTwitterTrends' },
+                    { name: 'Google Trends API', method: 'fetchGoogleTrends' },
+                    { name: 'News API', method: 'fetchRecentNews' }
+                ];
+
+                for (const api of apis) {
+                    try {
+                        const startTime = Date.now();
+                        const result = await trendAnalyzer[api.method]();
+                        const endTime = Date.now();
+                        
+                        const statusItem = document.createElement('div');
+                        statusItem.innerHTML = `
+                            <span style="color: #28a745;">✅ ${api.name}</span>: 
+                            ${result.length} 件のデータ取得 
+                            (${endTime - startTime}ms)
+                        `;
+                        statusList.appendChild(statusItem);
+                        
+                        console.log(`${api.name}:`, result);
+                    } catch (error) {
+                        const statusItem = document.createElement('div');
+                        statusItem.innerHTML = `
+                            <span style="color: #dc3545;">❌ ${api.name}</span>: 
+                            ${error.message}
+                        `;
+                        statusList.appendChild(statusItem);
+                        
+                        console.error(`${api.name} エラー:`, error);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('❌ API テストエラー:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ローディング表示制御
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            loading.style.display = show ? 'block' : 'none';
+        }
+
+        // 結果クリア
+        function clearResults() {
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('api-status').style.display = 'none';
+            console.clear();
+        }
+    </script>
+</body>
+</html>
