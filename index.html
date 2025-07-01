@@ -1237,7 +1237,7 @@
                 this.animateCards();
             }
 
-            // トレンドを表示
+            // トレンドを表示（マルチソース対応）
             renderTrends(trends) {
                 const trendingMain = document.querySelector('.trending-main');
                 if (!trendingMain || trends.length === 0) return;
@@ -1247,27 +1247,140 @@
                 trends.forEach(trend => {
                     const trendElement = document.createElement('div');
                     trendElement.className = 'trending-item';
+                    
+                    // ソース情報のアイコンを生成
+                    const sourceIcons = this.generateSourceIcons(trend.sources || ['News']);
+                    
+                    // 成長率の表示
+                    const growthText = typeof trend.growth === 'string' ? trend.growth : `+${trend.growth}%`;
+                    
+                    // カテゴリに基づく色分け
+                    const categoryColors = {
+                        'models': '#667eea',
+                        'companies': '#f093fb',
+                        'technologies': '#4facfe',
+                        'applications': '#43e97b',
+                        'concepts': '#fa709a',
+                        'industries': '#ffb75e',
+                        'general': '#667eea'
+                    };
+                    const categoryColor = categoryColors[trend.category] || categoryColors.general;
+                    
                     trendElement.innerHTML = `
-                        <div class="trending-rank">${trend.rank}</div>
+                        <div class="trending-rank" style="background: ${categoryColor};">${trend.rank}</div>
                         <div class="trending-content">
                             <h4>${trend.topic}</h4>
                             <p>${trend.description}</p>
-                            <span class="news-date">📈 +${trend.growth} 話題度上昇</span>
+                            <div class="trend-meta">
+                                <span class="news-date">📈 ${growthText} 話題度上昇</span>
+                                <div class="trend-sources" title="データソース: ${(trend.sources || ['News']).join(', ')}">
+                                    ${sourceIcons}
+                                    <span class="source-count">${trend.sourceCount || 1}ソース</span>
+                                </div>
+                            </div>
                         </div>
                     `;
                     trendingMain.appendChild(trendElement);
                 });
+
+                // トレンドメタデータ用のスタイルを追加
+                this.addTrendMetaStyles();
             }
 
-            // 統計情報を更新
-            updateStats() {
+            // ソースアイコンを生成
+            generateSourceIcons(sources) {
+                const iconMap = {
+                    'News': '<i class="fas fa-newspaper" title="ニュース"></i>',
+                    'YouTube': '<i class="fab fa-youtube" title="YouTube" style="color: #ff0000;"></i>',
+                    'Twitter': '<i class="fab fa-twitter" title="Twitter" style="color: #1da1f2;"></i>',
+                    'Google Trends': '<i class="fas fa-chart-line" title="Google Trends" style="color: #4285f4;"></i>'
+                };
+                
+                return sources.map(source => iconMap[source] || '<i class="fas fa-globe"></i>').join(' ');
+            }
+
+            // トレンドメタデータ用のスタイルを追加
+            addTrendMetaStyles() {
+                if (document.getElementById('trend-meta-styles')) return;
+                
+                const styles = document.createElement('style');
+                styles.id = 'trend-meta-styles';
+                styles.textContent = `
+                    .trend-meta {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 10px;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                    
+                    .trend-sources {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                    }
+                    
+                    .trend-sources i {
+                        font-size: 14px;
+                        opacity: 0.8;
+                    }
+                    
+                    .source-count {
+                        font-size: 0.8rem;
+                        background: var(--card-bg);
+                        padding: 2px 6px;
+                        border-radius: 10px;
+                        border: 1px solid var(--border-color);
+                    }
+                    
+                    .trending-rank {
+                        border-radius: 50%;
+                        color: white;
+                        font-weight: bold;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .trend-meta {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+                        
+                        .trend-sources {
+                            margin-top: 5px;
+                        }
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+
+            // 統計情報を更新（マルチソース対応）
+            updateStats(multiSourceData = null) {
                 const stats = document.querySelectorAll('.stat-value');
                 if (stats.length >= 5) {
-                    stats[0].textContent = Math.floor(Math.random() * 500) + 800; // 新着記事数
-                    stats[1].textContent = Math.floor(Math.random() * 20) + 70; // アクティブソース
-                    stats[2].textContent = '24'; // カテゴリー
-                    stats[3].textContent = '12'; // 言語
-                    stats[4].textContent = (Math.random() * 1.5 + 1.5).toFixed(1) + 'M'; // 総読者数
+                    // マルチソースデータがある場合は実際の数値を使用
+                    if (multiSourceData) {
+                        const newsCount = multiSourceData.news ? multiSourceData.news.length : 0;
+                        const youtubeCount = multiSourceData.youtube ? multiSourceData.youtube.length : 0;
+                        const twitterCount = multiSourceData.twitter ? multiSourceData.twitter.length : 0;
+                        const googleTrendsCount = multiSourceData.googleTrends ? multiSourceData.googleTrends.length : 0;
+                        
+                        stats[0].textContent = newsCount + youtubeCount + twitterCount + googleTrendsCount; // 総データ数
+                        stats[1].textContent = multiSourceData.totalSources || 4; // アクティブソース
+                        stats[2].textContent = '24'; // カテゴリー
+                        stats[3].textContent = '12'; // 言語
+                        stats[4].textContent = (Math.random() * 1.5 + 1.5).toFixed(1) + 'M'; // 総読者数
+                    } else {
+                        // フォールバック値
+                        stats[0].textContent = Math.floor(Math.random() * 500) + 800; // 新着記事数
+                        stats[1].textContent = Math.floor(Math.random() * 20) + 70; // アクティブソース
+                        stats[2].textContent = '24'; // カテゴリー
+                        stats[3].textContent = '12'; // 言語
+                        stats[4].textContent = (Math.random() * 1.5 + 1.5).toFixed(1) + 'M'; // 総読者数
+                    }
                 }
             }
 
