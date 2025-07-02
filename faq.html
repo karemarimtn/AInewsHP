@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問 - AI News Hub</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234299E1' /%3E%3Cstop offset='100%25' stop-color='%232B6CB0' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad1)' rx='10' ry='10'/%3E%3Cpath d='M30 75 L50 25 L70 75 H60 L50 50 L40 75 Z' fill='%23FFFFFF' /%3E%3Ccircle cx='50' cy='35' r='5' fill='%23FFFFFF' /%3E%3Ccircle cx='25' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3Ccircle cx='75' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234299E1' /%3E%3Cstop offset='100%25' stop-color='%232B6CB0' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad1)' rx='10' ry='10'/%3E%3Cpath d='M30 75 L50 25 L70 75 H60 L50 50 L40 75 Z' fill='%23FFFFFF' /%3E%3Ccircle cx='50' cy='35' r='5' fill='%23FFFFFF' /%3E%3Ccircle cx='25' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3Ccircle cx='75' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3C/svg%3E">
+    <meta name="theme-color" content="#4299E1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #374151;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 60px 0;
+        }
+
+        .faq-category {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .category-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+            color: var(--primary-color);
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            background: white;
+        }
+
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 10px;
+        }
+
+        .faq-answer ul {
+            margin: 10px 0 10px 20px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 5px;
+        }
+
+        .highlight-tip {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning-tip {
+            background: linear-gradient(135deg, #fef3cd 0%, #fed7aa 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .search-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .contact-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .contact-section .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .contact-section .github-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-category {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer.active {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                AI News Hubに戻る
+            </a>
+            <div class="header-content">
+                <h1>よくある質問</h1>
+                <p>AI News Hubに関するよくあるご質問</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="質問を検索..." id="searchInput">
+            </div>
+
+            <div class="faq-category">
+                <h2 class="category-title">
+                    <i class="fas fa-info-circle"></i>
+                    基本的な使い方
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>AI News Hubとは何ですか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>AI News Hubは、AI（人工知能）関連のニュースや情報を集約して表示する学習目的のウェブサイトです。複数のAPIを統合して、リアルタイムでAI関連のトレンドや最新ニュースを提供しています。</p>
+                        <div class="highlight-tip">
+                            <strong>ポイント：</strong>本サイトは教育・学習目的で作成されており、Web開発技術の実践的な学習プロジェクトとして開発されました。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>どのようなニュースが表示されますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>以下のカテゴリのAI関連ニュースを表示します：</p>
+                        <ul>
+                            <li>機械学習・深層学習の最新研究</li>
+                            <li>AI企業の動向とビジネスニュース</li>
+                            <li>AIツール・サービスのリリース情報</li>
+                            <li>AI政策・規制に関するニュース</li>
+                            <li>AI技術の産業応用事例</li>
+                        </ul>
+                        <p>情報は日本語と英語のソースから収集され、自動翻訳機能により日本語で表示されます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>検索機能の使い方を教えてください</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>サイト上部の検索ボックスを使用して、以下の方法で情報を検索できます：</p>
+                        <ul>
+                            <li><strong>キーワード検索：</strong>「ChatGPT」「機械学習」等の用語で検索</li>
+                            <li><strong>企業名検索：</strong>「OpenAI」「Google」等の企業名で検索</li>
+                            <li><strong>技術名検索：</strong>「LLM」「Transformer」等の技術名で検索</li>
+                        </ul>
+                        <p>検索結果はリアルタイムで表示され、日本語で入力すると自動的に英語のキーワードでも検索されます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>トレンドランキングはどのように算出されますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>トレンドランキングは以下の要素を総合的に分析して算出されます：</p>
+                        <ul>
+                            <li>ニュース記事の出現頻度</li>
+                            <li>YouTube動画の再生回数と増加率</li>
+                            <li>ソーシャルメディアでの言及数</li>
+                            <li>Google検索トレンドの変化</li>
+                        </ul>
+                        <div class="highlight-tip">
+                            <strong>更新頻度：</strong>トレンドデータは30分間隔で自動更新され、「今すぐ更新」ボタンで手動更新も可能です。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2 class="category-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    情報の正確性について
+                </h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>掲載されている情報の正確性は保証されていますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="warning-tip">
+                            <strong>重要：</strong>当サイトは学習目的で作成されており、掲載情報の正確性について保証いたしません。
+                        </div>
+                        <p>以下の点にご注意ください：</p>
+                        <ul>
+                            <li>情報は第三者のAPIから自動取得されています</li>
+                            <li>翻訳には自動翻訳を使用しており、誤訳の可能性があります</li>
+                            <li>重要な情報については必ず元サイトで確認してください</li>
+                            <li>投資判断や重要な意思決定の参考にはしないでください</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>古い情報や間違った情報が表示された場合はどうすればよいですか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>以下の対応をお願いします：</p>
+                        <ul>
+                            <li><strong>元記事の確認：</strong>記事タイトルをクリックして元サイトで最新情報を確認</li>
+                            <li><strong>手動更新：</strong>「今すぐ更新」ボタンでデータを最新に更新</li>
+                            <li><strong>報告：</strong>継続的な問題がある場合はGitHubのIssuesで報告</li>
+                        </ul>
+                        <div class="highlight-tip">
+                            <strong>免責事項：</strong>情報の利用はすべて閲覧者個人の責任となります。当サイトは情報の正誤について責任を負いません。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2 class="category-title">
+                    <i class="fas fa-cog"></i>
+                    技術的な質問
+                </h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>どのような技術が使われていますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>以下の技術を使用しています：</p>
+                        <ul>
+                            <li><strong>フロントエンド：</strong>HTML5, CSS3, Vanilla JavaScript</li>
+                            <li><strong>API統合：</strong>News API, YouTube Data API, Twitter API, Google Trends API</li>
+                            <li><strong>デザイン：</strong>レスポンシブデザイン、CSS Grid/Flexbox</li>
+                            <li><strong>データ処理：</strong>リアルタイム分析、感情分析、重み付けアルゴリズム</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>モバイルデバイスでも利用できますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、レスポンシブデザインに対応しており、以下のデバイスで利用可能です：</p>
+                        <ul>
+                            <li>スマートフォン（iOS/Android）</li>
+                            <li>タブレット</li>
+                            <li>デスクトップPC</li>
+                            <li>ノートパソコン</li>
+                        </ul>
+                        <p>画面サイズに応じて自動的にレイアウトが調整され、どのデバイスでも快適にご利用いただけます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>ページの読み込みが遅い場合はどうすればよいですか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>以下の方法をお試しください：</p>
+                        <ul>
+                            <li><strong>ブラウザの更新：</strong>F5キーまたは更新ボタンでページを再読み込み</li>
+                            <li><strong>キャッシュクリア：</strong>ブラウザのキャッシュをクリア</li>
+                            <li><strong>インターネット接続：</strong>ネットワーク接続を確認</li>
+                            <li><strong>ブラウザ変更：</strong>Chrome、Firefox、Safari等の最新ブラウザを使用</li>
+                        </ul>
+                        <div class="warning-tip">
+                            <strong>注意：</strong>外部APIの応答時間により読み込み速度が影響を受ける場合があります。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2 class="category-title">
+                    <i class="fas fa-shield-alt"></i>
+                    プライバシー・セキュリティ
+                </h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>個人情報は収集されますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>当サイトでは以下の情報のみを収集します：</p>
+                        <ul>
+                            <li><strong>基本的なアクセス情報：</strong>IPアドレス、ブラウザ情報、アクセス時間</li>
+                            <li><strong>Cookie：</strong>サイト設定の保存（言語設定等）</li>
+                        </ul>
+                        <p>以下の情報は収集していません：</p>
+                        <ul>
+                            <li>氏名、メールアドレス等の個人識別情報</li>
+                            <li>ユーザー登録情報（登録機能なし）</li>
+                            <li>決済情報（課金機能なし）</li>
+                        </ul>
+                        <p>詳細は<a href="privacy-policy.html" style="color: var(--primary-color);">プライバシーポリシー</a>をご確認ください。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>サイトの利用は無料ですか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、当サイトは完全無料でご利用いただけます。</p>
+                        <ul>
+                            <li>会員登録は不要です</li>
+                            <li>課金機能はありません</li>
+                            <li>広告表示もありません</li>
+                            <li>すべての機能を無料で利用可能です</li>
+                        </ul>
+                        <div class="highlight-tip">
+                            <strong>学習目的：</strong>当サイトは教育・学習目的で作成されており、商業利用は行っていません。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2 class="category-title">
+                    <i class="fas fa-code"></i>
+                    開発・コントリビューション
+                </h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>ソースコードは公開されていますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、GitHubでソースコードを公開しています：</p>
+                        <p><strong>リポジトリ：</strong><a href="https://github.com/karemarimtn/AInewsHP" target="_blank" style="color: var(--primary-color);">https://github.com/karemarimtn/AInewsHP</a></p>
+                        <ul>
+                            <li>すべてのコードがオープンソース</li>
+                            <li>学習目的での参考・研究が可能</li>
+                            <li>Issue報告やPull Requestも歓迎</li>
+                            <li>MIT Licenseで公開</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>バグ報告や機能要望はどこで受け付けていますか？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>GitHub上で以下の方法で受け付けています：</p>
+                        <ul>
+                            <li><strong>バグ報告：</strong>GitHub Issues</li>
+                            <li><strong>機能要望：</strong>GitHub Issues または Discussions</li>
+                            <li><strong>質問・相談：</strong>GitHub Discussions</li>
+                            <li><strong>コード改善：</strong>Pull Request</li>
+                        </ul>
+                        <p>報告時は以下の情報を含めていただけると助かります：</p>
+                        <ul>
+                            <li>使用ブラウザとバージョン</li>
+                            <li>発生した問題の詳細</li>
+                            <li>再現手順</li>
+                            <li>期待される動作</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2>解決しない問題がありますか？</h2>
+                <p>上記のFAQで解決しない問題がございましたら、<br>GitHubでお気軽にお問い合わせください。</p>
+                <a href="https://github.com/karemarimtn/AInewsHP/issues" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i>
+                    GitHubで質問する
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const isActive = answer.classList.contains('active');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer.active').forEach(el => {
+                el.classList.remove('active');
+                el.previousElementSibling.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+                answer.classList.add('active');
+                element.classList.add('active');
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

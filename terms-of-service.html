@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用規約 - AI News Hub</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234299E1' /%3E%3Cstop offset='100%25' stop-color='%232B6CB0' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad1)' rx='10' ry='10'/%3E%3Cpath d='M30 75 L50 25 L70 75 H60 L50 50 L40 75 Z' fill='%23FFFFFF' /%3E%3Ccircle cx='50' cy='35' r='5' fill='%23FFFFFF' /%3E%3Ccircle cx='25' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3Ccircle cx='75' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234299E1' /%3E%3Cstop offset='100%25' stop-color='%232B6CB0' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad1)' rx='10' ry='10'/%3E%3Cpath d='M30 75 L50 25 L70 75 H60 L50 50 L40 75 Z' fill='%23FFFFFF' /%3E%3Ccircle cx='50' cy='35' r='5' fill='%23FFFFFF' /%3E%3Ccircle cx='25' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3Ccircle cx='75' cy='60' r='3' fill='%23FFFFFF' opacity='0.7' /%3E%3C/svg%3E">
+    <meta name="theme-color" content="#4299E1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #374151;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 60px 0;
+        }
+
+        .content-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .content-section h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3cd 0%, #fed7aa 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #92400e;
+        }
+
+        .important-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid #dc2626;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .important-box strong {
+            color: #991b1b;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f3e5f5 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-info {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                AI News Hubに戻る
+            </a>
+            <div class="header-content">
+                <h1>利用規約</h1>
+                <p>AI News Hubサービス利用に関する規約</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-section">
+                <h2>1. はじめに</h2>
+                <p>AI News Hub（以下「当サイト」）は、AI関連のニュースや情報を集約・提供する学習目的のウェブサイトです。本利用規約（以下「本規約」）は、当サイトの利用に関する条件を定めたものです。</p>
+                
+                <div class="warning-box">
+                    <p><strong>重要な注意事項</strong>：当サイトは教育・学習目的で個人により作成されており、商業的なサービスではありません。提供される情報の利用については、利用者ご自身の責任で判断してください。</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>2. 規約への同意</h2>
+                <p>当サイトをご利用いただく場合は、本規約にご同意いただいたものとみなします。本規約に同意いただけない場合は、当サイトのご利用をお控えください。</p>
+            </div>
+
+            <div class="content-section">
+                <h2>3. サービスの概要</h2>
+                
+                <h3>3.1 提供サービス</h3>
+                <p>当サイトでは以下のサービスを提供しています：</p>
+                <ul>
+                    <li>AI関連ニュースの集約・表示</li>
+                    <li>トレンド分析情報の提供</li>
+                    <li>関連サイト・リソースの紹介</li>
+                    <li>検索・フィルタリング機能</li>
+                </ul>
+
+                <h3>3.2 学習目的での提供</h3>
+                <p>当サイトは以下の目的で作成・運営されています：</p>
+                <ul>
+                    <li>Web開発技術の学習・実践</li>
+                    <li>API統合技術の習得</li>
+                    <li>データ可視化技術の研究</li>
+                    <li>ユーザーインターフェース設計の学習</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>4. 利用者の責任と義務</h2>
+                
+                <div class="important-box">
+                    <p><strong>【重要】情報の利用について</strong>：当サイトに掲載される情報は、第三者のAPIやウェブサイトから取得したものであり、その正確性、完全性、最新性について保証するものではありません。掲載情報の利用は、すべて利用者個人の責任において行ってください。</p>
+                </div>
+
+                <h3>4.1 禁止事項</h3>
+                <p>当サイトの利用において、以下の行為は禁止されています：</p>
+                <ul>
+                    <li>違法な目的での利用</li>
+                    <li>他者の知的財産権を侵害する行為</li>
+                    <li>サイトの運営を妨害する行為</li>
+                    <li>過度なアクセスやシステムへの負荷をかける行為</li>
+                    <li>虚偽の情報を流布する行為</li>
+                    <li>営利目的での無断利用</li>
+                </ul>
+
+                <h3>4.2 情報の取り扱い</h3>
+                <ul>
+                    <li>掲載情報の正誤判断は利用者が行ってください</li>
+                    <li>投資や重要な意思決定に関わる情報については、必ず他の情報源でも確認してください</li>
+                    <li>情報の転載・再配布については著作権に注意してください</li>
+                    <li>最新情報は元サイトで確認することを推奨します</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>5. 免責事項</h2>
+                
+                <h3>5.1 情報の正確性について</h3>
+                <div class="important-box">
+                    <p><strong>免責条項</strong>：当サイトは学習目的で作成されたものであり、掲載される情報の正確性、信頼性、完全性について一切の保証を行いません。利用者が当サイトの情報に基づいて行った行動により生じた損害について、当サイト運営者は一切の責任を負いません。</p>
+                </div>
+
+                <h3>5.2 サービスの継続性</h3>
+                <ul>
+                    <li>当サイトの継続的な運営を保証するものではありません</li>
+                    <li>予告なくサービスの変更・停止を行う場合があります</li>
+                    <li>システムメンテナンスやアップデートにより一時的に利用できない場合があります</li>
+                </ul>
+
+                <h3>5.3 外部サービス</h3>
+                <ul>
+                    <li>外部API（News API、YouTube API等）の障害により情報が取得できない場合があります</li>
+                    <li>外部サイトへのリンクについて、リンク先の内容について責任を負いません</li>
+                    <li>第三者サービスの利用規約変更により機能が制限される場合があります</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>6. 知的財産権</h2>
+                
+                <h3>6.1 当サイトのコンテンツ</h3>
+                <ul>
+                    <li>当サイトのオリジナルコンテンツ（デザイン、プログラムコード等）の著作権は運営者に帰属します</li>
+                    <li>学習目的での参考・研究は歓迎しますが、コードの丸写しはお控えください</li>
+                </ul>
+
+                <h3>6.2 第三者コンテンツ</h3>
+                <ul>
+                    <li>ニュース記事、画像等の著作権は各権利者に帰属します</li>
+                    <li>当サイトは情報の表示・リンクのみを行い、著作権の譲渡等は行いません</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>7. 技術的制限事項</h2>
+                
+                <div class="info-box">
+                    <p><strong>技術的な制約</strong>：当サイトは学習プロジェクトのため、以下の制限があります。</p>
+                </div>
+
+                <ul>
+                    <li>APIの利用制限により、情報の更新頻度に制約があります</li>
+                    <li>大量のアクセスには対応できない場合があります</li>
+                    <li>ブラウザの種類・バージョンによっては正常に動作しない場合があります</li>
+                    <li>モバイル環境での表示に制限がある場合があります</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>8. プライバシーとデータ保護</h2>
+                <p>個人情報の取り扱いについては、別途「プライバシーポリシー」をご確認ください。当サイトでは以下の原則に基づいてデータを扱います：</p>
+                <ul>
+                    <li>必要最小限の情報のみ収集</li>
+                    <li>収集情報の適切な保護</li>
+                    <li>第三者への不当な提供は行いません</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>9. 規約の変更</h2>
+                <p>当サイトでは、以下の場合に本規約を変更することがあります：</p>
+                <ul>
+                    <li>法令の改正</li>
+                    <li>サービス内容の変更</li>
+                    <li>技術的な仕様変更</li>
+                    <li>学習内容の発展に伴う変更</li>
+                </ul>
+                <p>重要な変更については、当サイト上で告知いたします。</p>
+            </div>
+
+            <div class="content-section">
+                <h2>10. 準拠法・管轄裁判所</h2>
+                <p>本規約は日本法に準拠し、当サイトに関する紛争については、当サイト運営者の住所地を管轄する裁判所を専属的合意管轄とします。</p>
+            </div>
+
+            <div class="content-section">
+                <h2>11. お問い合わせ</h2>
+                <div class="contact-info">
+                    <p><strong>利用規約に関するお問い合わせ</strong></p>
+                    <p>本利用規約に関するご質問や不明な点については、GitHub上のIssuesまたはDiscussionsにてお気軽にお問い合わせください。</p>
+                    <p><strong>GitHub Repository</strong>: <a href="https://github.com/karemarimtn/AInewsHP" target="_blank" style="color: var(--primary-color);">https://github.com/karemarimtn/AInewsHP</a></p>
+                    <p><strong>対応言語</strong>: 日本語、英語</p>
+                </div>
+            </div>
+
+            <div class="last-updated">
+                <p>最終更新日：2025年1月1日</p>
+                <p>制定日：2025年1月1日</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
