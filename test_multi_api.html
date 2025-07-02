@@ -118,12 +118,17 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script src="trend_analyzer.js"></script>
     <script>
         // テスト用のニュースアグリゲーター
         class TestNewsAggregator {
             constructor() {
-                this.apiKey = '7b4cd42056a24f40b31061d28a6cca7f';
+                // 設定管理システムを使用
+                this.config = window.AppConfig || new ConfigManager();
+                this.newsConfig = this.config.getApiConfig('news');
+                this.isNewsApiEnabled = this.config.isApiEnabled('news');
+                console.log(`🧪 Test News API: ${this.isNewsApiEnabled ? '有効' : '無効 - デモデータ使用'}`);
             }
 
             async fetchLatestNews(page = 1, query = '') {

@@ -1,0 +1,81 @@
+# 🔒 AI News Hub - Git Ignore設定
+
+# 環境変数ファイル（APIキーなどの機密情報）
+.env
+.env.local
+.env.production
+.env.staging
+
+# ログファイル
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 依存関係キャッシュ
+node_modules/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ビルド出力
+dist/
+build/
+.next/
+.nuxt/
+.output/
+
+# IDE設定ファイル
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS固有ファイル
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# バックアップファイル
+*.bak
+*.backup
+*.tmp
+
+# 一時ファイル
+.cache/
+.temp/
+.tmp/
+
+# デプロイ設定ファイル（APIキーが含まれる可能性）
+config.local.js
+config.production.js
+
+# API設定ファイル（実際のキーが含まれる場合）
+api-keys.json
+secrets.json
+
+# テストカバレッジ
+coverage/
+.nyc_output/
+
+# パッケージマネージャーファイル
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# SSL証明書
+*.pem
+*.key
+*.crt
+
+# サーバーログ
+server.log
+access.log
+error.log
