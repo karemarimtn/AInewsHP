@@ -335,7 +335,7 @@
 
         .trending-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 40px;
         }
 
@@ -348,7 +348,7 @@
         .trending-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 25px;
         }
 
         .trending-column {
@@ -776,83 +776,7 @@
                 <p class="section-subtitle">世界各地から集められた最新のAI関連ニュースをリアルタイムで更新</p>
                 
                 <div class="news-grid" id="news-container">
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">AI News</span>
-                                <span class="news-date">2025年1月30日</span>
-                            </div>
-                            <h3 class="news-title">AIがエネルギー需要に与える影響と電力網の課題</h3>
-                            <p class="news-excerpt">AIデータセンターの急激な成長により、電力網への負荷が増大。持続可能なAI発展のための新たな取り組みが注目されています。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">AINOW</span>
-                                <span class="news-date">2025年1月30日</span>
-                            </div>
-                            <h3 class="news-title">日本のAI戦略：2025年の展望と政府の取り組み</h3>
-                            <p class="news-excerpt">日本政府が発表したAI推進法案と、Society 5.0実現に向けた具体的な政策について詳しく解説します。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">AI Daily</span>
-                                <span class="news-date">2025年1月29日</span>
-                            </div>
-                            <h3 class="news-title">生成AIの新たな突破口：マルチモーダルモデルの進化</h3>
-                            <p class="news-excerpt">テキスト、画像、音声を統合的に処理する次世代AIモデルが実用化段階に。様々な産業への応用が期待されています。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">OpenAI</span>
-                                <span class="news-date">2025年1月29日</span>
-                            </div>
-                            <h3 class="news-title">ChatGPT最新アップデート：推論能力の大幅向上</h3>
-                            <p class="news-excerpt">OpenAIが発表した最新の言語モデルは、複雑な推論タスクにおいて人間レベルの精度を実現。科学研究や教育分野での活用が加速。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">MIT News</span>
-                                <span class="news-date">2025年1月28日</span>
-                            </div>
-                            <h3 class="news-title">AI倫理研究の最前線：バイアス除去の新手法</h3>
-                            <p class="news-excerpt">MIT研究チームが開発した新しいアルゴリズムにより、AIシステムの公平性を大幅に改善する技術が実現。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image"></div>
-                        <div class="news-content">
-                            <div class="news-meta">
-                                <span class="news-source">TechCrunch</span>
-                                <span class="news-date">2025年1月28日</span>
-                            </div>
-                            <h3 class="news-title">AIスタートアップの資金調達動向：2025年第1四半期レポート</h3>
-                            <p class="news-excerpt">AI関連スタートアップへの投資が過去最高を記録。特に日本とヨーロッパでの成長が顕著に。</p>
-                            <a href="#" class="source-link">続きを読む</a>
-                        </div>
-                    </div>
+                    <!-- 最新ニュースはAPIから動的に読み込まれます -->
                 </div>
 
                 <div style="text-align: center; margin-top: 40px;">
@@ -871,124 +795,30 @@
                 
                 <div class="trending-grid">
                     <div class="trending-main">
-                        <div class="trending-columns">
-                            <div class="trending-column">
-                                <div class="trending-item">
-                                    <div class="trending-rank">1</div>
-                                    <div class="trending-content">
-                                        <h4>生成AI規制法案</h4>
-                                        <p>各国で議論されているAI規制の動向と企業への影響</p>
-                                        <span class="news-date">📈 +245% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">2</div>
-                                    <div class="trending-content">
-                                        <h4>量子AI計算</h4>
-                                        <p>量子コンピューターとAIの融合技術の最新進展</p>
-                                        <span class="news-date">📈 +198% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">3</div>
-                                    <div class="trending-content">
-                                        <h4>AIロボティクス</h4>
-                                        <p>産業用ロボットへのAI統合による自動化革命</p>
-                                        <span class="news-date">📈 +167% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">4</div>
-                                    <div class="trending-content">
-                                        <h4>医療AI診断</h4>
-                                        <p>AIによる早期疾患発見技術の実用化</p>
-                                        <span class="news-date">📈 +134% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">5</div>
-                                    <div class="trending-content">
-                                        <h4>エッジAI</h4>
-                                        <p>デバイス内AI処理技術の進歩とプライバシー保護</p>
-                                        <span class="news-date">📈 +112% 話題度上昇</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trending-column">
-                                <div class="trending-item">
-                                    <div class="trending-rank">6</div>
-                                    <div class="trending-content">
-                                        <h4>多言語AI</h4>
-                                        <p>自然言語処理の多言語対応技術の進化</p>
-                                        <span class="news-date">📈 +89% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">7</div>
-                                    <div class="trending-content">
-                                        <h4>AIアート</h4>
-                                        <p>生成AIによるクリエイティブ産業の変革</p>
-                                        <span class="news-date">📈 +76% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">8</div>
-                                    <div class="trending-content">
-                                        <h4>AI教育</h4>
-                                        <p>教育分野でのAI活用とパーソナライズ学習</p>
-                                        <span class="news-date">📈 +65% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">9</div>
-                                    <div class="trending-content">
-                                        <h4>AI倫理</h4>
-                                        <p>AI開発・運用における倫理ガイドライン策定</p>
-                                        <span class="news-date">📈 +52% 話題度上昇</span>
-                                    </div>
-                                </div>
-
-                                <div class="trending-item">
-                                    <div class="trending-rank">10</div>
-                                    <div class="trending-content">
-                                        <h4>AIインフラ</h4>
-                                        <p>AI向けクラウドインフラとエッジコンピューティング</p>
-                                        <span class="news-date">📈 +38% 話題度上昇</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- リアルタイムトレンドデータがここに表示されます -->
                     </div>
 
                     <div class="trending-stats">
                         <h3>週間統計</h3>
                         <div class="stat-item">
                             <span>新着記事数</span>
-                            <span class="stat-value">1,247</span>
+                            <span class="stat-value" id="stat-articles">0</span>
                         </div>
                         <div class="stat-item">
                             <span>アクティブソース</span>
-                            <span class="stat-value">89</span>
+                            <span class="stat-value" id="stat-sources">0</span>
                         </div>
                         <div class="stat-item">
                             <span>カテゴリー</span>
-                            <span class="stat-value">24</span>
+                            <span class="stat-value" id="stat-categories">6</span>
                         </div>
                         <div class="stat-item">
                             <span>言語</span>
-                            <span class="stat-value">12</span>
+                            <span class="stat-value" id="stat-languages">2</span>
                         </div>
                         <div class="stat-item">
                             <span>総読者数</span>
-                            <span class="stat-value">2.1M</span>
+                            <span class="stat-value" id="stat-readers">0</span>
                         </div>
                     </div>
                 </div>
@@ -1027,26 +857,10 @@
 
                     <div class="tool-card">
                         <div class="tool-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>トレンド分析</h3>
-                        <p>AIトピックの人気度変化を可視化</p>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-icon">
-                            <i class="fas fa-share-alt"></i>
-                        </div>
-                        <h3>簡単シェア</h3>
-                        <p>SNSやメールで記事を簡単に共有</p>
-                    </div>
-
-                    <div class="tool-card">
-                        <div class="tool-icon">
                             <i class="fas fa-language"></i>
                         </div>
                         <h3>多言語対応</h3>
-                        <p>12言語での記事閲覧をサポート</p>
+                        <p>2言語（日本語・英語）での記事閲覧をサポート</p>
                     </div>
                 </div>
             </div>
