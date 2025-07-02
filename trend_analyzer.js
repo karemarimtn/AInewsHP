@@ -468,7 +468,10 @@ class RealTimeAITrendAnalyzer {
 
     // 結果フォーマット（マルチソース対応）
     formatTrendResults(trends) {
-        return trends.map((trend, index) => ({
+        // 最大10個まで表示
+        const limitedTrends = trends.slice(0, 10);
+        
+        return limitedTrends.map((trend, index) => ({
             rank: index + 1,
             topic: this.formatTopic(trend.term, trend.category),
             description: this.generateDescription(trend),
