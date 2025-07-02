@@ -47,13 +47,18 @@
 
 ### API統合
 ```javascript
-// 使用API一覧
-const APIs = {
-  news: "News API (7b4cd42056a24f40b31061d28a6cca7f)",
-  youtube: "YouTube Data API v3 (AIzaSyCxqYcAVrzGA1E-VPebZeyFGSqsbmOHB0I)",
-  twitter: "X API v2 (ZR5sX8yjXcMyVZpEZHiE06mUD)",
-  googleTrends: "Google Trends API (4359c8d42179d0e80537ac49578fb4c9c4237990ca1e26bb57e6100895518d37)"
+// セキュアな設定管理システム
+const APIConfig = {
+  news: "News API (環境変数で設定)",
+  youtube: "YouTube Data API v3 (環境変数で設定)",
+  twitter: "X API v2 (環境変数で設定)",
+  googleTrends: "Google Trends API (環境変数で設定)"
 };
+
+// 🔒 セキュリティ改善済み:
+// - APIキーのハードコーディングを削除
+// - 環境変数による設定管理
+// - フォールバックシステム実装
 ```
 
 ### アーキテクチャ
@@ -61,9 +66,26 @@ const APIs = {
 AI News Hub/
 ├── index.html              # メインサイト
 ├── trend_analyzer.js       # トレンド分析エンジン
+├── config.js              # 🔒 設定管理システム（NEW）
 ├── test_multi_api.html     # API動作テスト
+├── .env.example           # 🔒 環境変数テンプレート（NEW）
+├── .gitignore             # 🔒 セキュリティ設定（NEW）
+├── DEPLOYMENT.md          # 🚀 デプロイガイド（NEW）
 └── README.md              # このファイル
 ```
+
+### 🔒 セキュリティ強化（v2.1.0）
+
+**新機能:**
+- **設定管理システム**: APIキーの安全な管理
+- **環境変数サポート**: 本番環境での適切な設定
+- **フォールバックシステム**: API障害時の継続稼働
+- **セキュリティチェック**: 開発/本番環境の自動判定
+
+**削除した脆弱性:**
+- ❌ ハードコーディングされたAPIキー
+- ❌ ソースコードに埋め込まれた機密情報
+- ❌ 設定管理の欠如
 
 ## 📸 スクリーンショット
 
@@ -86,7 +108,21 @@ git clone https://github.com/karemarimtn/AInewsHP.git
 cd AInewsHP
 ```
 
-### 2. ローカルサーバーで起動
+### 2. 🔒 セキュア設定（重要）
+```bash
+# 環境変数テンプレートをコピー
+cp .env.example .env
+
+# APIキーを設定（.envファイルを編集）
+nano .env
+```
+
+**必要なAPIキー:**
+- [News API](https://newsapi.org/) - 無料プランあり
+- [YouTube API](https://console.developers.google.com/) - オプション
+- [X API](https://developer.twitter.com/) - オプション
+
+### 3. ローカルサーバーで起動
 ```bash
 # Python 3の場合
 python3 -m http.server 8000
@@ -98,10 +134,22 @@ npx serve .
 php -S localhost:8000
 ```
 
-### 3. ブラウザでアクセス
+### 4. ブラウザでアクセス
 ```
 http://localhost:8000
 ```
+
+### 5. 🔧 開発環境での設定確認
+ブラウザの開発者ツール（F12）を開き、コンソールで：
+```javascript
+// 設定状況を確認
+AppConfig.logConfig();
+
+// 開発環境でAPIキーを設定（一時的）
+AppConfig.setDevelopmentApiKey('news', 'your_api_key');
+```
+
+**詳細な設定方法**: [DEPLOYMENT.md](./DEPLOYMENT.md) を参照
 
 ## 🧪 テスト機能
 
