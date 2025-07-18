@@ -9,6 +9,9 @@
     <meta name="theme-color" content="#4299E1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 設定管理システム -->
+    <script src="config.js"></script>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -907,30 +910,41 @@
     
     <script>
         // News API設定
-        const NEWS_API_KEY = '7b4cd42056a24f40b31061d28a6cca7f';
         const NEWS_API_BASE_URL = 'https://newsapi.org/v2';
         
         // AIニュースアグリゲータークラス
         class AINewsAggregator {
             constructor() {
-                this.apiKey = NEWS_API_KEY;
+                // 設定管理システムを使用
+                this.config = window.AppConfig || new ConfigManager();
+                this.newsConfig = this.config.getApiConfig('news');
                 this.currentPage = 1;
                 this.pageSize = 6;
                 this.totalResults = 0;
                 this.loadingMore = false;
                 this.searchQuery = '';
                 this.currentCategory = 'all';
+                
+                // News API有効性チェック
+                this.isNewsApiEnabled = this.config.isApiEnabled('news');
+                console.log(`📰 News API: ${this.isNewsApiEnabled ? '有効' : '無効 - フォールバック使用'}`);
             }
 
             // 最新AIニュースを取得
             async fetchLatestNews(page = 1, query = '') {
+                // API有効性チェック
+                if (!this.isNewsApiEnabled) {
+                    console.log('📰 News API: 無効またはキーが未設定 - フォールバックデータを使用');
+                    return this.getEmergencyFallbackData();
+                }
+
                 try {
                     // CORS回避のためプロキシを使用
                     const searchTerms = query || 'artificial intelligence OR machine learning OR deep learning OR neural network OR AI OR ChatGPT OR OpenAI';
-                    const apiUrl = `${NEWS_API_BASE_URL}/everything?q=${encodeURIComponent(searchTerms)}&sortBy=publishedAt&page=${page}&pageSize=${this.pageSize}&language=en&apiKey=${this.apiKey}`;
+                    const apiUrl = `${this.newsConfig.baseUrl}/everything?q=${encodeURIComponent(searchTerms)}&sortBy=publishedAt&page=${page}&pageSize=${this.pageSize}&language=en&apiKey=${this.newsConfig.key}`;
                     
                     // CORSプロキシを使用
-                    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
+                    const proxyUrl = this.config.buildProxyUrl(apiUrl);
                     
                     const response = await fetch(proxyUrl);
                     const proxyData = await response.json();
@@ -1010,13 +1024,24 @@
 
             // 特定のソースからニュースを取得
             async fetchNewsBySource(sources) {
+                // API有効性チェック
+                if (!this.isNewsApiEnabled) {
+                    console.log('📰 ソース別ニュース: API無効 - フォールバック使用');
+                    return [];
+                }
+
                 try {
-                    const url = `${NEWS_API_BASE_URL}/top-headlines?sources=${sources}&apiKey=${this.apiKey}`;
-                    const response = await fetch(url);
-                    const data = await response.json();
+                    const url = `${this.newsConfig.baseUrl}/top-headlines?sources=${sources}&apiKey=${this.newsConfig.key}`;
+                    const proxyUrl = this.config.buildProxyUrl(url);
                     
-                    if (data.status === 'ok') {
-                        return data.articles;
+                    const response = await fetch(proxyUrl);
+                    const proxyData = await response.json();
+                    
+                    if (proxyData.status && proxyData.status.http_code === 200) {
+                        const data = JSON.parse(proxyData.contents);
+                        if (data.status === 'ok') {
+                            return data.articles;
+                        }
                     }
                     return [];
                 } catch (error) {
